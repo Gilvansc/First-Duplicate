@@ -1,14 +1,23 @@
 package firstDuplicate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 	public static void main(String[] args) {
-		Integer[] a = { 1, 16, 2, 14, 13, 3, 15, 4, 5, 6, 7, 8, 9, 10, 10, 9, 11, 11, 12, 13, 14, 15, 1, 16, 5, 8, 9, 3,
-				2, 4, 7, 1, 4, 2, 3, 4, 1, 2, 4, 6, 7, 1 };
-		System.out.printf("primeira duplicata: %d", getFirstDuplicate(a));
+		int tamanhoDaArray=100000;
+		int escopoDaAleatoriedade=100000;
+		long inicioDeContagemDeTempo = System.currentTimeMillis();
+		Integer[] a = new Integer[tamanhoDaArray];
+		for (int i = 0; i < a.length; i++) {
+			a[i] = new Random().nextInt(escopoDaAleatoriedade);
+		}
+		long tempoDecorrido = System.currentTimeMillis()-inicioDeContagemDeTempo;
+		System.out.printf("criou a array de %s numeros aleatorios de 0 a %s em %s millissegundos  \n",tamanhoDaArray,escopoDaAleatoriedade,tempoDecorrido);
+
+		System.out.println("inicio");
+		System.out.printf("primeira duplicata: %d\n", getFirstDuplicate(a));
+		float tempoTotalDecorrido = System.currentTimeMillis()-inicioDeContagemDeTempo;
+		System.out.printf("tempo total decorrido:%.2f segundos",(tempoTotalDecorrido)/1000);
 	}
 
 	private static int getFirstDuplicate(Integer[] a) {
@@ -16,10 +25,14 @@ public class Main {
 		int firtIndexOfDuplicate = -1;
 		int lastIndexOfDuplicate = a.length;
 		boolean checkNextDuplicate;
+		long iterações = 0;
+		// System.out.println(numbers.toString());
 		do {
 			checkNextDuplicate = false;
 			loopExterno: for (int i = firtIndexOfDuplicate + 1; i < lastIndexOfDuplicate; i++) {
+				iterações++;
 				for (int j = i + 1; j < lastIndexOfDuplicate; j++) {
+					iterações++;
 					if (numbers.get(i) == numbers.get(j)) {
 						firtIndexOfDuplicate = i;
 						lastIndexOfDuplicate = j;
@@ -29,8 +42,10 @@ public class Main {
 				}
 			}
 		} while (checkNextDuplicate);
-
+		System.out.println("iterações "+iterações);
+		System.out.printf("primeiro indice da duplicata:%d \n" + "segundo indice da duplicata:%d\n",
+				firtIndexOfDuplicate, lastIndexOfDuplicate);
 		return numbers.get(firtIndexOfDuplicate);
 	}
-
+	
 }
