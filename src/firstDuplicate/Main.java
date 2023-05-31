@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Main {
 	public static void main(String[] args) {
+		System.out.println(System.currentTimeMillis());
 		int tamanhoDaArray=100000;
 		int escopoDaAleatoriedade=100000;
 		long inicioDeContagemDeTempo = System.currentTimeMillis();
@@ -15,12 +16,17 @@ public class Main {
 		System.out.printf("criou a array de %s numeros aleatorios de 0 a %s em %s millissegundos  \n",tamanhoDaArray,escopoDaAleatoriedade,tempoDecorrido);
 
 		System.out.println("inicio");
-		System.out.printf("primeira duplicata: %d\n", getFirstDuplicate(a));
+		try {
+			System.out.printf("primeira duplicata: %d\n", getFirstDuplicate(a));
+		} catch (Exception e) {
+			
+			System.out.println("não ha duplicatas");;
+		}
 		float tempoTotalDecorrido = System.currentTimeMillis()-inicioDeContagemDeTempo;
 		System.out.printf("tempo total decorrido:%.2f segundos",(tempoTotalDecorrido)/1000);
 	}
 
-	private static int getFirstDuplicate(Integer[] a) {
+	private static int getFirstDuplicate(Integer[] a) throws Exception {
 		List<Integer> numbers = new ArrayList<>(Arrays.asList(a));
 		int firtIndexOfDuplicate = -1;
 		int lastIndexOfDuplicate = a.length;
